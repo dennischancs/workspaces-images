@@ -17,7 +17,8 @@ ENV INST_SCRIPTS $STARTUPDIR/install
 ######### Customize Container Here ###########
 
 ### Building an Image with sudo
-RUN apt-get update \
+RUN sed -i 's/\/\/.*ubuntu.com/\/\/mirrors.ustc.edu.cn/g' /etc/apt/sources.list \
+    && apt-get update \
     && apt-get install -y sudo \
     && echo 'kasm-user ALL=(ALL) NOPASSWD: ALL' >> /etc/sudoers \
     && rm -rf /var/lib/apt/list/*
@@ -35,9 +36,9 @@ RUN bash $INST_SCRIPTS/misc/install_tools.sh && rm -rf $INST_SCRIPTS/misc/
 COPY ./src/ubuntu/install/edge $INST_SCRIPTS/edge/
 RUN bash $INST_SCRIPTS/edge/install_edge.sh  && rm -rf $INST_SCRIPTS/edge/
 
-# Install Brave Browser
-COPY ./src/ubuntu/install/brave $INST_SCRIPTS/brave/
-RUN bash $INST_SCRIPTS/brave/install_brave.sh  && rm -rf $INST_SCRIPTS/brave/
+# # Install Brave Browser
+# COPY ./src/ubuntu/install/brave $INST_SCRIPTS/brave/
+# RUN bash $INST_SCRIPTS/brave/install_brave.sh  && rm -rf $INST_SCRIPTS/brave/
 
 # Install Tor Browser
 COPY ./src/ubuntu/install/torbrowser $INST_SCRIPTS/torbrowser/
@@ -58,9 +59,9 @@ COPY ./src/ubuntu/install/postman $INST_SCRIPTS/postman/
 RUN bash $INST_SCRIPTS/postman/install_postman.sh  && rm -rf $INST_SCRIPTS/postman/
 
 # -- 远程 --
-# Install NextCloud
-COPY ./src/ubuntu/install/nextcloud $INST_SCRIPTS/nextcloud/
-RUN bash $INST_SCRIPTS/nextcloud/install_nextcloud.sh  && rm -rf $INST_SCRIPTS/nextcloud/
+# # Install NextCloud
+# COPY ./src/ubuntu/install/nextcloud $INST_SCRIPTS/nextcloud/
+# RUN bash $INST_SCRIPTS/nextcloud/install_nextcloud.sh  && rm -rf $INST_SCRIPTS/nextcloud/
 
 # Install Remmina
 COPY ./src/ubuntu/install/remmina $INST_SCRIPTS/remmina/
@@ -100,9 +101,9 @@ RUN bash $INST_SCRIPTS/remmina/install_remmina.sh  && rm -rf $INST_SCRIPTS/remmi
 # RUN bash $INST_SCRIPTS/thunderbird/install_thunderbird.sh  && rm -rf $INST_SCRIPTS/thunderbird/
 
 # -- other --
-# Install Wine
-COPY ./src/ubuntu/install/wine $INST_SCRIPTS/wine/
-RUN bash $INST_SCRIPTS/wine/install_wine.sh  && rm -rf $INST_SCRIPTS/wine/
+# # Install Wine
+# COPY ./src/ubuntu/install/wine $INST_SCRIPTS/wine/
+# RUN bash $INST_SCRIPTS/wine/install_wine.sh  && rm -rf $INST_SCRIPTS/wine/
 
 # # Install GIMP 图像处理
 # COPY ./src/ubuntu/install/gimp $INST_SCRIPTS/gimp/
